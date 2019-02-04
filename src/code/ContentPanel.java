@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
@@ -132,7 +133,7 @@ public class ContentPanel extends JPanel implements ActionListener, ListDataList
 	}
 	
 	public void DeleteGroup() {
-		
+		engine.deleteGroup(listGroup.getSelectedValue());
 	}
 	
 	public void NewServer() {
@@ -339,7 +340,6 @@ public class ContentPanel extends JPanel implements ActionListener, ListDataList
 	
 	private void InitGroupComponents() {
 		panelGroup = new JPanel();
-		scrollGroup = new JScrollPane();
 		
 		buttonNewGroup = new JButton("Neu");
 		buttonNewGroup.setActionCommand("Group;New");
@@ -364,7 +364,11 @@ public class ContentPanel extends JPanel implements ActionListener, ListDataList
 		
 		UpdateGroups();
 		
-		panelGroup.add(listGroup);
+		scrollGroup = new JScrollPane(listGroup);
+//		scrollGroup.setViewportView(listGroup);
+		scrollGroup.setBounds(0,0,panelGroup.getWidth(), (panelGroup.getHeight() / 10) * 9);
+		
+		panelGroup.add(scrollGroup);
 		panelGroup.add(buttonNewGroup);
 		panelGroup.add(buttonDeleteGroup);
 		
@@ -374,7 +378,6 @@ public class ContentPanel extends JPanel implements ActionListener, ListDataList
 	
 	private void InitServerComponents() {
 		panelServer = new JPanel();
-		scrollServer = new JScrollPane();
 		
 		buttonNewServer = new JButton("Neu");
 		buttonNewServer.setActionCommand("Server;New");
@@ -401,8 +404,12 @@ public class ContentPanel extends JPanel implements ActionListener, ListDataList
 		listServer.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		UpdateServer();
+		
+		scrollServer = new JScrollPane(listServer);
+//		scrollServer.setViewportView(listServer);
+		scrollServer.setBounds(0,0,panelServer.getWidth(), (panelServer.getHeight() / 10) * 9);
 
-		panelServer.add(listServer);
+		panelServer.add(scrollServer);
 		panelServer.add(buttonNewServer);
 		panelServer.add(buttonDeleteServer);
 		
